@@ -17,7 +17,7 @@ import {
 
 export default function Header() {
   const navigate = useNavigate();
-  const { t } = useI18n();
+  const { t, lang, setLang } = useI18n();
   const [loggedIn, setLoggedIn] = useState(false);
   const [username, setUsername] = useState<string | null>(null);
 
@@ -42,6 +42,8 @@ export default function Header() {
     navigate("/login");
   };
 
+  const toggleLang = () => setLang(lang === "en" ? "ar" : "en");
+
   return (
     <header className="sticky top-0 z-20 w-full border-b bg-white/70 backdrop-blur supports-[backdrop-filter]:bg-white/50">
       <div className="flex h-14 items-center gap-3 px-4">
@@ -51,6 +53,9 @@ export default function Header() {
           <div className="hidden md:block">
             <Input placeholder={t("searchPlaceholder")} className="h-9 w-64" />
           </div>
+          <Button variant="outline" size="sm" onClick={toggleLang} aria-label={t("language")}>
+            {lang === "en" ? "AR" : "EN"}
+          </Button>
           <Button variant="ghost" size="icon" aria-label={t("notifications")}>
             <Bell className="h-5 w-5" />
           </Button>
