@@ -45,6 +45,7 @@ type AuthUser = {
   username: string;
   email: string;
   position: "Admin" | "User" | string;
+  password?: string | null;
 };
 
 const STORAGE_KEY = "app.authorizations";
@@ -64,6 +65,7 @@ type AuthForm = {
   username: string;
   email: string;
   position: "Admin" | "User" | string;
+  password: string;
 };
 
 const emptyForm: AuthForm = {
@@ -71,6 +73,7 @@ const emptyForm: AuthForm = {
   username: "",
   email: "",
   position: "User",
+  password: "",
 };
 
 export default function AuthorizationsPage() {
@@ -94,15 +97,16 @@ export default function AuthorizationsPage() {
   const [editOpen, setEditOpen] = useState(false);
   const [editForm, setEditForm] = useState<(AuthUser & { index: number }) | null>(null);
 
-  function validate(form: AuthForm) {
-    const errs: Partial<Record<keyof AuthForm, string>> = {};
-    if (!form.name.trim()) errs.name = "required";
-    if (!form.username.trim()) errs.username = "required";
-    if (!form.email.trim()) errs.email = "required";
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) errs.email = "invalidEmail";
-    if (!form.position) errs.position = "required";
-    return errs;
-  }
+  function validate(form: AuthForm, mode: "add" | "edit" = "add") {
+  const errs: Partial<Record<keyof AuthForm, string>> = {};
+  if (!form.name.trim()) errs.name = "required";
+  if (!form.username.trim()) errs.username = "required";
+  if (!form.email.trim()) errs.email = "required";
+  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) errs.email = "invalidEmail";
+  if (!form.position) errs.position = "required";
+  if (mode === "add" && (!form.password || form.password.length < 4)) errs.password = "required";
+  return errs;
+}
 
   async function syncAuth() {
     try {
@@ -170,7 +174,7 @@ export default function AuthorizationsPage() {
   };
 
   const handleAdd = async () => {
-    const errs = validate(addForm);
+    const errs = validate(addForm, "add");
     setAddErrors(errs);
     if (Object.keys(errs).length > 0) return;
     const { data, error } = await supabase
@@ -180,6 +184,7 @@ export default function AuthorizationsPage() {
         username: addForm.username,
         email: addForm.email,
         position: addForm.position,
+        password: addForm.password,
       })
       .select("id, name, username, email, position")
       .single();
@@ -225,16 +230,21 @@ export default function AuthorizationsPage() {
       username: editForm.username,
       email: editForm.email,
       position: editForm.position,
-    });
+      password: "",
+    }, "edit");
     if (Object.keys(errs).length > 0) return;
+    const updatePayload: any = {
+      name: editForm.name,
+      username: editForm.username,
+      email: editForm.email,
+      position: editForm.position,
+    };
+    if ((editForm as any).password && (editForm as any).password.length >= 1) {
+      updatePayload.password = (editForm as any).password;
+    }
     const { error } = await supabase
       .from("authorizations")
-      .update({
-        name: editForm.name,
-        username: editForm.username,
-        email: editForm.email,
-        position: editForm.position,
-      })
+      .update(updatePayload)
       .eq("id", editForm.id);
     if (!error) {
       setRows((r) => {
@@ -369,18 +379,23 @@ export default function AuthorizationsPage() {
                     {addErrors.email && <p className="mt-1 text-xs text-destructive">{t(addErrors.email)}</p>}
                   </div>
                   <div>
-                    <Label>{t("position")}</Label>
-                    <Select value={addForm.position} onValueChange={(v) => setAddForm((f) => ({ ...f, position: v }))}>
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder={t("position")} />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="Admin">{t("admin")}</SelectItem>
-                        <SelectItem value="User">{t("user")}</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    {addErrors.position && <p className="mt-1 text-xs text-destructive">{t(addErrors.position)}</p>}
-                  </div>
+                  <Label>{t("position")}</Label>
+                  <Select value={addForm.position} onValueChange={(v) => setAddForm((f) => ({ ...f, position: v }))}>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder={t("position")} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Admin">{t("admin")}</SelectItem>
+                      <SelectItem value="User">{t("user")}</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  {addErrors.position && <p className="mt-1 text-xs text-destructive">{t(addErrors.position)}</p>}
+                </div>
+                <div>
+                  <Label htmlFor="password">{t("password")}</Label>
+                  <Input id="password" type="text" value={addForm.password} onChange={(e) => setAddForm((f) => ({ ...f, password: e.target.value }))} />
+                  {addErrors.password && <p className="mt-1 text-xs text-destructive">{t(addErrors.password)}</p>}
+                </div>
                 </div>
                 <DialogFooter className="mt-6 gap-2 sm:gap-2">
                   <Button variant="outline" onClick={() => setAddOpen(false)}>
@@ -503,6 +518,10 @@ export default function AuthorizationsPage() {
                     <SelectItem value="User">{t("user")}</SelectItem>
                   </SelectContent>
                 </Select>
+              </div>
+              <div>
+                <Label htmlFor="edit-password">{t("password")} (optional)</Label>
+                <Input id="edit-password" type="text" onChange={(e) => setEditForm((f) => (f ? { ...f, password: e.target.value } as any : f))} />
               </div>
             </div>
           )}
