@@ -19,10 +19,9 @@ export default function Index() {
   const [showSitesOverview, setShowSitesOverview] = useState(false);
 
   const cards = [
-    { key: "totalLitersToday", value: `${(kpis?.litersToday ?? 0).toFixed(2)} liters`, bg: "bg-rose-500" },
-    { key: "totalLiters30", value: `${(kpis?.liters30d ?? 0).toFixed(2)} liters`, bg: "bg-sky-500" },
-    { key: "activeMissions", value: String(kpis?.activeMissions ?? 0), bg: "bg-emerald-600" },
-    { key: "activeDrivers", value: String(kpis?.activeDrivers ?? 0), bg: "bg-indigo-600" },
+    { key: "totalLitersToday", value: `${(kpis?.litersToday ?? 0).toFixed(2)} liters`, color: "#E60000" },
+    { key: "totalLiters30", value: `${(kpis?.liters30d ?? 0).toFixed(2)} liters`, color: "#0C2340" },
+    { key: "activeMissions", value: String(kpis?.activeMissions ?? 0), color: "#5B6770" },
   ];
 
   return (
@@ -31,12 +30,15 @@ export default function Index() {
       <div className="px-4 pb-10 pt-4">
         <div className="mb-4 text-sm text-muted-foreground">{t("dashboard")}</div>
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {cards.map((m) => (
-            <Card key={m.key} className="overflow-hidden">
-              <CardContent className={`${m.bg} p-4 text-white`}>
-                <div className="text-sm/6 opacity-90">{t(m.key as any)}</div>
-                <div className="mt-2 text-2xl font-semibold">{m.value}</div>
+            <Card key={m.key} className="overflow-hidden rounded-2xl shadow-sm">
+              <div className="h-2 w-full" style={{ backgroundColor: m.color }} />
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between">
+                  <div className="text-sm/6 text-[#6B7280] font-medium">{t(m.key as any)}</div>
+                  <div className="text-2xl font-bold text-[#1F2937]">{m.value}</div>
+                </div>
               </CardContent>
             </Card>
           ))}
@@ -45,13 +47,27 @@ export default function Index() {
         <div className="mt-6 grid gap-6 lg:grid-cols-2">
           <Card>
             <CardContent className="p-6">
-              <div className="mb-3 text-base font-medium">{t("totalTasksStatusCount")}</div>
+              <div className="mb-3 text-base font-semibold text-[#1F2937]">Mission Status Distribution</div>
               <ChartContainer config={{}} className="aspect-[4/3]">
                 <PieChart>
-                  <Pie data={(statusData ?? []).map((d, i) => ({ ...d, color: STATUS_COLORS[i % STATUS_COLORS.length] }))} dataKey="value" nameKey="name" innerRadius={60} outerRadius={100} paddingAngle={2}>
-                    {(statusData ?? []).map((_, i) => (
-                      <Cell key={`s-${i}`} fill={STATUS_COLORS[i % STATUS_COLORS.length]} />
-                    ))}
+                  <Pie data={(statusData ?? []).map((d) => {
+                    const name = String(d.name || "").toLowerCase();
+                    let color = "#5B6770";
+                    if (/(pending|creation)/.test(name)) color = "#E60000";
+                    else if (/(in[_\-\s]?progress|reported)/.test(name)) color = "#FACC15";
+                    else if (/approved/.test(name)) color = "#16A34A";
+                    else if (/(rejected|canceled|cancelled)/.test(name)) color = "#5B6770";
+                    return { ...d, color };
+                  })} dataKey="value" nameKey="name" innerRadius={60} outerRadius={100} paddingAngle={2}>
+                    {(statusData ?? []).map((d, i) => {
+                      const name = String(d.name || "").toLowerCase();
+                      let color = "#5B6770";
+                      if (/(pending|creation)/.test(name)) color = "#E60000";
+                      else if (/(in[_\-\s]?progress|reported)/.test(name)) color = "#FACC15";
+                      else if (/approved/.test(name)) color = "#16A34A";
+                      else if (/(rejected|canceled|cancelled)/.test(name)) color = "#5B6770";
+                      return <Cell key={`s-${i}`} fill={color} />;
+                    })}
                   </Pie>
                   <Tooltip />
                   <Legend />
@@ -62,7 +78,7 @@ export default function Index() {
 
           <Card>
             <CardContent className="p-6">
-              <div className="mb-3 text-base font-medium">{t("totalTasksZonesCount")}</div>
+              <div className="mb-3 text-base font-semibold text-[#1F2937]">Missions by Region</div>
               <ChartContainer config={{}} className="aspect-[4/3]">
                 <PieChart>
                   <Pie data={(zoneData ?? []).map((d, i) => ({ ...d, color: ZONE_COLORS[i % ZONE_COLORS.length] }))} dataKey="value" nameKey="name" innerRadius={60} outerRadius={100} paddingAngle={2}>
@@ -81,7 +97,7 @@ export default function Index() {
         <div className="mt-6 flex items-center">
           <button
             onClick={() => setShowSitesOverview((v) => !v)}
-            className="inline-flex items-center rounded border px-3 py-1.5 text-sm hover:bg-muted"
+            className="inline-flex items-center rounded bg-[#E60000] px-4 py-2 text-sm font-medium text-white hover:opacity-90"
           >
             {showSitesOverview ? t("hideSitesOverview") : t("showSitesOverview")}
           </button>
