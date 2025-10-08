@@ -126,9 +126,11 @@ export default function Login() {
   };
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-gradient-to-br from-[#eef2ff] via-[#f8fafc] to-[#ffffff]">
-      {/* 3D high-contrast background */}
-      <Login3DBackground logoUrl="https://cdn.builder.io/api/v1/image/assets%2Fbd65b3cd7a86452e803a3d7dc7a3d048%2F105b639e4bb8470085fcfa7a9656d760?format=webp&width=800" />
+    <div className="relative min-h-screen w-full overflow-hidden">
+      {/* Background image layer */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-cover bg-center" style={{ backgroundImage: "url('https://cdn.builder.io/api/v1/image/assets%2Fbd65b3cd7a86452e803a3d7dc7a3d048%2F8d9e83e302314801bae39aaa4940bba6?format=webp&width=1600')", backgroundAttachment: "fixed" }} />
+      {/* Dark overlay for contrast */}
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[#0B1220]/70" />
       <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl items-center justify-center px-4">
         <Card className="w-full max-w-md bg-[linear-gradient(to_bottom,rgba(255,255,255,0.9),rgba(240,240,240,0.95))] backdrop-blur-[12px] border border-white/60 rounded-2xl shadow-[0_4px_25px_rgba(0,0,0,0.08)] transition-transform duration-300 ease-in-out hover:scale-[1.01]">
           <CardContent className="p-10">
