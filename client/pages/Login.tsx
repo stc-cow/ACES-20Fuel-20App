@@ -131,7 +131,7 @@ export default function Login() {
               <div className="mx-auto mb-3 flex items-center justify-center">
                 <div className="inline-block bg-white/20 rounded-xl px-[10px] py-[6px]">
                   <img
-                    src="https://cdn.builder.io/api/v1/image/assets%2Fbd65b3cd7a86452e803a3d7dc7a3d048%2F88c65af5aa594e4eb74b03e70886ef92?format=webp&width=1600"
+                    src="https://cdn.builder.io/api/v1/image/assets%2Fbd65b3cd7a86452e803a3d7dc7a3d048%2F105b639e4bb8470085fcfa7a9656d760?format=webp&width=800"
                     alt="ACES Managed Services"
                     className="mx-auto w-[160px] max-w-[80%] h-auto object-contain drop-shadow-[0_0_6px_rgba(0,0,0,0.25)]"
                     loading="eager"
