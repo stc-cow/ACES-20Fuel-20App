@@ -128,7 +128,15 @@ export default function Login() {
   return (
     <div className="relative min-h-screen w-full overflow-hidden">
       {/* Background image layer */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-cover bg-center" style={{ backgroundImage: "url('https://cdn.builder.io/api/v1/image/assets%2Fbd65b3cd7a86452e803a3d7dc7a3d048%2F8d9e83e302314801bae39aaa4940bba6?format=webp&width=1600')", backgroundAttachment: "fixed" }} />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-10 bg-cover bg-center"
+        style={{
+          backgroundImage:
+            "url('https://cdn.builder.io/api/v1/image/assets%2Fbd65b3cd7a86452e803a3d7dc7a3d048%2F8d9e83e302314801bae39aaa4940bba6?format=webp&width=1600')",
+          backgroundAttachment: "fixed",
+        }}
+      />
       {/* Dark overlay for contrast */}
       <div className="pointer-events-none absolute inset-0 -z-10 bg-[#0B1220]/70" />
       <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl items-center justify-center px-4">
