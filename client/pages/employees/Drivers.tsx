@@ -15,12 +15,6 @@ import {
 } from "@/components/ui/dialog";
 import { toast } from "@/hooks/use-toast";
 import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
   Table,
   TableBody,
   TableCell,
@@ -146,8 +140,8 @@ export default function DriversPage() {
     active: boolean;
   };
   const emptyForm: DriverForm = { name: "", phone: "", zone: "", active: true };
-  const [addOpen, setAddOpen] = useState(false);
-  const [addPassword, setAddPassword] = useState("");
+  const [addOpen] = useState(false);
+  const [addPassword] = useState("");
   const [addForm, setAddForm] = useState<DriverForm>(emptyForm);
   const [addErrors, setAddErrors] = useState<
     Partial<Record<keyof DriverForm, string>>
@@ -220,7 +214,7 @@ export default function DriversPage() {
 
   const [viewOpen, setViewOpen] = useState(false);
   const [viewing, setViewing] = useState<Driver | null>(null);
-  const [editOpen, setEditOpen] = useState(false);
+  const [editOpen] = useState(false);
   const [editForm, setEditForm] = useState<Driver | null>(null);
   const [editPassword, setEditPassword] = useState("");
 
@@ -228,10 +222,7 @@ export default function DriversPage() {
     setViewing(row);
     setViewOpen(true);
   };
-  const openEdit = (row: Driver) => {
-    setEditForm({ ...row });
-    setEditOpen(true);
-  };
+  const openEdit = (_row: Driver) => {};
 
   const handleEditSave = async () => {
     if (!editForm) return;
@@ -370,9 +361,6 @@ export default function DriversPage() {
             Manage the drivers and their users
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="destructive" className="hidden sm:inline-flex">
-              Archive
-            </Button>
             <Button
               variant="secondary"
               className="hidden sm:inline-flex"
@@ -380,31 +368,9 @@ export default function DriversPage() {
             >
               <Download className="mr-2 h-4 w-4" /> Export
             </Button>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="hidden sm:inline-flex">
-                  <Columns2 className="mr-2 h-4 w-4" /> Column visibility
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                {allColumns.map((c) => (
-                  <DropdownMenuCheckboxItem
-                    key={c.key}
-                    checked={cols[c.key]}
-                    onCheckedChange={(v) =>
-                      setCols((s) => ({ ...s, [c.key]: !!v }))
-                    }
-                  >
-                    {c.label}
-                  </DropdownMenuCheckboxItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-            <Dialog open={addOpen} onOpenChange={setAddOpen}>
+            <Dialog open={false} onOpenChange={() => {}}>
               <DialogTrigger asChild>
-                <Button className="bg-sky-600 hover:bg-sky-500">
-                  <Plus className="mr-2 h-4 w-4" /> Add
-                </Button>
+                <span className="hidden" />
               </DialogTrigger>
               <DialogContent>
                 <DialogHeader>
@@ -507,7 +473,7 @@ export default function DriversPage() {
           </DialogContent>
         </Dialog>
 
-        <Dialog open={editOpen} onOpenChange={setEditOpen}>
+        <Dialog open={false} onOpenChange={() => {}}>
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Edit Driver</DialogTitle>
@@ -672,23 +638,7 @@ export default function DriversPage() {
                           >
                             <Eye className="h-4 w-4" />
                           </Button>
-                          <Button
-                            size="icon"
-                            variant="ghost"
-                            aria-label="Edit"
-                            onClick={() => openEdit(r)}
-                          >
-                            <Pencil className="h-4 w-4" />
-                          </Button>
-                          <Button
-                            size="icon"
-                            variant="ghost"
-                            aria-label="Delete"
-                            onClick={() => remove(r.id)}
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        </TableCell>
+                            </TableCell>
                       )}
                     </TableRow>
                   ))}
