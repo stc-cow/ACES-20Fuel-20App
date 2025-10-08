@@ -688,8 +688,8 @@ export default function MissionsPage() {
             </Button>
             <Dialog open={addOpen} onOpenChange={setAddOpen}>
               <DialogTrigger asChild>
-                <Button className="bg-sky-600 hover:bg-sky-500">
-                  <Plus className="mr-2 h-4 w-4" /> Add
+                <Button className="bg-[#E60000] hover:opacity-90">
+                  <Plus className="mr-2 h-4 w-4" /> Add New Mission
                 </Button>
               </DialogTrigger>
               <DialogContent>
@@ -838,11 +838,9 @@ export default function MissionsPage() {
         <Card>
           <CardContent className="p-0">
             <div className="flex items-center justify-between gap-4 p-4">
-              <div className="text-sm text-muted-foreground">
-                Print | Column visibility | Show {pageSize} rows
-              </div>
+              <div className="text-sm font-medium text-[#0C2340]">Missions</div>
               <div className="flex items-center gap-2">
-                <span className="text-sm text-muted-foreground">Search</span>
+                <span className="text-sm text-[#5B6770]">Search</span>
                 <Input
                   value={query}
                   onChange={(e) => {
@@ -858,7 +856,7 @@ export default function MissionsPage() {
             <div className="overflow-x-auto">
               <Table>
                 <TableHeader>
-                  <TableRow className="bg-[hsl(var(--primary))] text-white hover:bg-[hsl(var(--primary))]">
+                  <TableRow className="bg-white text-[#0C2340] hover:bg-white">
                     {cols.missionId && (
                       <TableHead className="text-white">Mission ID</TableHead>
                     )}
@@ -924,7 +922,7 @@ export default function MissionsPage() {
                     <TableRow
                       key={r.id}
                       onClick={() => toggleExpand(r)}
-                      className="cursor-pointer"
+                      className="cursor-pointer hover:bg-[#EEF2FF]"
                     >
                       {cols.missionId && (
                         <TableCell className="font-medium">
@@ -1034,9 +1032,9 @@ export default function MissionsPage() {
                   ))}
                   {current.map((r) =>
                     expanded[r.id] ? (
-                      <TableRow key={`exp-${r.id}`} className="bg-muted/30">
+                      <TableRow key={`exp-${r.id}`} className="bg-white">
                         <TableCell colSpan={allColumns.length}>
-                          <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+                          <div className="grid grid-cols-1 gap-3 md:grid-cols-3 p-4 rounded-md">
                             <div>
                               <div className="text-xs text-muted-foreground">
                                 Mission ID
@@ -1095,10 +1093,8 @@ export default function MissionsPage() {
                               </div>
                             </div>
                             <div className="md:col-span-3">
-                              <div className="text-xs text-muted-foreground mb-1">
-                                Images
-                              </div>
-                              <div className="flex flex-wrap gap-2">
+                              <div className="text-xs text-[#6B7280] mb-1">Images</div>
+                              <div className="grid grid-cols-3 gap-2">
                                 {entryByTask[r.id]?.photo_url && (
                                   <img
                                     src={entryByTask[r.id]?.photo_url}
@@ -1137,7 +1133,7 @@ export default function MissionsPage() {
                             </div>
                             <div className="md:col-span-3 flex items-center justify-end gap-2">
                               <Button
-                                className="bg-emerald-600 hover:bg-emerald-500"
+                                className="bg-[#16A34A] hover:opacity-90"
                                 onClick={(e) => {
                                   e.stopPropagation();
                                   setAdminStatus(r.id, "Task approved");
