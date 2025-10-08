@@ -4,12 +4,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
   Table,
   TableBody,
   TableCell,
@@ -387,9 +381,10 @@ export default function MissionsPage() {
     id: number,
     status: Mission["missionStatus"],
   ) => {
+    const newAdmin = status === "Task approved" ? "approved" : status;
     const { error } = await supabase
       .from("driver_tasks")
-      .update({ admin_status: status })
+      .update({ admin_status: newAdmin })
       .eq("id", id);
     if (error) {
       toast({ title: "Update failed", description: error.message });
@@ -411,6 +406,9 @@ export default function MissionsPage() {
           { onConflict: "task_id" },
         );
       }
+      setRows((arr) => arr.filter((r) => r.id !== id));
+      toast({ title: "Approved and moved to Reports" });
+      return;
     }
     setRows((arr) =>
       arr.map((r) => (r.id === id ? { ...r, missionStatus: status } : r)),
@@ -579,6 +577,24 @@ export default function MissionsPage() {
 
   useEffect(() => {
     loadFromDb();
+    const channel = (supabase as any)
+      .channel("missions-realtime")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "driver_tasks" },
+        () => loadFromDb(),
+      )
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "driver_task_entries" },
+        () => loadFromDb(),
+      )
+      .subscribe();
+    return () => {
+      try {
+        (supabase as any).removeChannel(channel);
+      } catch {}
+    };
   }, []);
 
   const counts = useMemo(() => {
@@ -595,8 +611,9 @@ export default function MissionsPage() {
   }, [rows]);
 
   const filteredByStatus = useMemo(() => {
-    if (statusFilter === "All") return rows;
-    return rows.filter((r) => r.missionStatus === statusFilter);
+    const base = rows.filter((r) => r.missionStatus !== "Task approved");
+    if (statusFilter === "All") return base;
+    return base.filter((r) => r.missionStatus === statusFilter);
   }, [rows, statusFilter]);
 
   const filtered = useMemo(() => {
@@ -669,48 +686,6 @@ export default function MissionsPage() {
             >
               <Download className="mr-2 h-4 w-4" /> Export
             </Button>
-            <Button
-              variant="outline"
-              className="hidden sm:inline-flex"
-              onClick={handleSyncAll}
-            >
-              Sync to DB
-            </Button>
-            <Button
-              variant="outline"
-              className="hidden sm:inline-flex"
-              onClick={() => window.print()}
-            >
-              <Printer className="mr-2 h-4 w-4" /> Print
-            </Button>
-            <Button
-              variant="outline"
-              className="hidden sm:inline-flex"
-              onClick={loadFromDb}
-            >
-              <UploadCloud className="mr-2 h-4 w-4" /> Refresh
-            </Button>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="hidden sm:inline-flex">
-                  <Columns2 className="mr-2 h-4 w-4" /> Column visibility
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                {allColumns.map((c) => (
-                  <DropdownMenuCheckboxItem
-                    key={c.key}
-                    checked={cols[c.key]}
-                    onCheckedChange={(v) =>
-                      setCols((s) => ({ ...s, [c.key]: !!v }))
-                    }
-                    disabled={c.key === "siteName"}
-                  >
-                    {c.label}
-                  </DropdownMenuCheckboxItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
             <Dialog open={addOpen} onOpenChange={setAddOpen}>
               <DialogTrigger asChild>
                 <Button className="bg-sky-600 hover:bg-sky-500">
