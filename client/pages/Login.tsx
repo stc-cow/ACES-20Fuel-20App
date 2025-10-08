@@ -63,16 +63,19 @@ export default function Login() {
     let ok = false;
     const { data, error } = await supabase
       .from("admins")
-      .select("id, username, password")
+      .select("id, username, password, position")
       .eq("username", values.username.trim())
       .maybeSingle();
+    let isSuperAdmin = false;
     if (!error && data) {
       ok = data.password === values.password;
+      isSuperAdmin = (data.position || "").toLowerCase() === "admin";
     }
     // fallback to legacy hardcoded admin if table not yet populated
     if (!ok && (!data || error)) {
       ok =
         values.username.trim() === "Bannaga" && values.password === "Aces@6343";
+      if (ok) isSuperAdmin = true;
     }
 
     if (!ok) {
@@ -86,6 +89,7 @@ export default function Login() {
     }
     localStorage.setItem("auth.loggedIn", "true");
     localStorage.setItem("auth.username", values.username);
+    localStorage.setItem("auth.role", isSuperAdmin ? "superadmin" : "user");
     // Log to admin_log table
     try {
       await supabase
