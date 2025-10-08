@@ -45,7 +45,11 @@ export default function Login3DBackground({ logoUrl }: { logoUrl: string }) {
 
         <ambientLight intensity={0.4} />
         <directionalLight position={[5, 5, 5]} intensity={1.2} />
-        <directionalLight position={[-6, -4, 2]} intensity={0.4} color="#4f46e5" />
+        <directionalLight
+          position={[-6, -4, 2]}
+          intensity={0.4}
+          color="#4f46e5"
+        />
 
         <ParallaxGroup>
           <Float speed={0.6} rotationIntensity={0.2} floatIntensity={0.6}>
