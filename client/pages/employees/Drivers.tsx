@@ -362,8 +362,8 @@ export default function DriversPage() {
           </div>
           <div className="flex items-center gap-2">
             <Button
-              variant="secondary"
-              className="hidden sm:inline-flex"
+              variant="outline"
+              className="hidden sm:inline-flex border-[#0C2340] text-[#0C2340]"
               onClick={exportCsv}
             >
               <Download className="mr-2 h-4 w-4" /> Export
@@ -593,7 +593,7 @@ export default function DriversPage() {
             <div className="overflow-x-auto">
               <Table>
                 <TableHeader>
-                  <TableRow className="bg-[hsl(var(--primary))] text-white hover:bg-[hsl(var(--primary))]">
+                  <TableRow className="bg-[#0C2340] text-white hover:bg-[#0C2340]">
                     {cols.name && (
                       <TableHead className="text-white">Name</TableHead>
                     )}
