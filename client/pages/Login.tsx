@@ -98,7 +98,6 @@ export default function Login() {
   const { t } = useI18n();
   const [resetOpen, setResetOpen] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
   const [resetEmail, setResetEmail] = useState("");
 
   const sendReset = async () => {
