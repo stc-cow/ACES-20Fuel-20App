@@ -68,9 +68,9 @@ function AppSidebar() {
         <div className="flex items-center">
           <Link to="/" className="select-none">
             <img
-              src="https://cdn.builder.io/api/v1/image/assets%2Fbd65b3cd7a86452e803a3d7dc7a3d048%2Fcc12e1e1a8a240879dd12161adb1c5a7?format=webp&width=800"
-              alt="ACES"
-              className="h-12 w-auto"
+              src="https://cdn.builder.io/api/v1/image/assets%2Fbd65b3cd7a86452e803a3d7dc7a3d048%2F1befde69d4c941c4bc184e091531baa4?format=webp&width=800"
+              alt="ACES Managed Services"
+              className="h-16 w-auto"
               loading="eager"
               decoding="async"
             />
