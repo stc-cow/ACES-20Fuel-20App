@@ -856,7 +856,7 @@ export default function MissionsPage() {
             <div className="overflow-x-auto">
               <Table>
                 <TableHeader>
-                  <TableRow className="bg-white text-[#0C2340] hover:bg-white">
+                  <TableRow className="bg-[#0C2340] text-white hover:bg-[#0C2340]">
                     {cols.missionId && (
                       <TableHead className="text-white">Mission ID</TableHead>
                     )}
