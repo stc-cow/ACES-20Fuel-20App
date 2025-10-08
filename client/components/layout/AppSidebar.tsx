@@ -56,6 +56,8 @@ function AppSidebar() {
   }, [pathname]);
 
   const { t } = useI18n();
+  const role = typeof window !== "undefined" ? localStorage.getItem("auth.role") : null;
+  const isAdmin = role === "superadmin";
 
   return (
     <Sidebar
@@ -89,15 +91,17 @@ function AppSidebar() {
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild isActive={isActive("/users")}>
-                  <Link to="/users" className="flex items-center">
-                    <span className="font-bold text-white">
-                      {t("usersAuth")}
-                    </span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
+              {isAdmin && (
+                <SidebarMenuItem>
+                  <SidebarMenuButton asChild isActive={isActive("/users")}>
+                    <Link to="/users" className="flex items-center">
+                      <span className="font-bold text-white">
+                        {t("usersAuth")}
+                      </span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              )}
               <SidebarMenuItem>
                 <SidebarMenuButton asChild isActive={isActive("/missions")}>
                   <Link to="/missions" className="flex items-center">
