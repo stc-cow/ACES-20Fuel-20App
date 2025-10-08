@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/dialog";
 import { useI18n } from "@/i18n";
 import { toast } from "@/hooks/use-toast";
+import { Loader2, Eye, EyeOff } from "lucide-react";
 
 const schema = z.object({
   username: z.string().min(1, "Username is required"),
@@ -96,6 +97,7 @@ export default function Login() {
 
   const { t } = useI18n();
   const [resetOpen, setResetOpen] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [resetEmail, setResetEmail] = useState("");
 
   const sendReset = async () => {
@@ -123,26 +125,28 @@ export default function Login() {
     <div className="relative min-h-screen w-full overflow-hidden bg-gradient-to-br from-[#eef2ff] via-[#f8fafc] to-[#ffffff]">
       <Decor />
       <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl items-center justify-center px-4">
-        <Card className="w-full max-w-md bg-[#0D0F1A] border border-[#1F2937] rounded-2xl shadow-2xl transition-transform duration-300 ease-in-out hover:scale-[1.01]">
+        <Card className="w-full max-w-md bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl shadow-2xl transition-transform duration-300 ease-in-out hover:scale-[1.01]">
           <CardContent className="p-10">
             <div className="mb-8">
-              <div className="mx-auto mb-3 flex items-center justify-center">
-                <img
-                  src="https://cdn.builder.io/api/v1/image/assets%2Fbd65b3cd7a86452e803a3d7dc7a3d048%2F1befde69d4c941c4bc184e091531baa4?format=webp&width=1600"
-                  alt="ACES Managed Services"
-                  className="w-full h-auto"
-                  loading="eager"
-                  decoding="async"
-                />
+              <div className="mx-auto mb-4 flex flex-col items-center justify-center">
+                <div className="w-full max-w-[380px] md:max-w-[460px]">
+                  <img
+                    src="https://cdn.builder.io/api/v1/image/assets%2Fbd65b3cd7a86452e803a3d7dc7a3d048%2F88c65af5aa594e4eb74b03e70886ef92?format=webp&width=1600"
+                    alt="ACES Managed Services"
+                    className="w-full h-auto drop-shadow-[0_0_16px_rgba(255,255,255,0.18)]"
+                    loading="eager"
+                    decoding="async"
+                  />
+                </div>
               </div>
-              <h1 className="text-lg font-semibold text-white">
+              <h1 className="text-lg md:text-xl font-semibold text-white text-center">
                 Sign in to ACES MSD Fuel Portal
               </h1>
-              <p className="mt-1 text-xs text-white/60">
+              <p className="mt-2 text-xs md:text-sm text-white/70 text-center">
                 {t("signInSubtitle")}
               </p>
             </div>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+            <form onSubmit={handleSubmit(onSubmit)} className={"space-y-5 " + (authError ? "animate-shake" : "")}>
               <div>
                 <Label htmlFor="username" className="text-white/80">
                   {t("username")}
@@ -151,7 +155,7 @@ export default function Login() {
                   id="username"
                   placeholder={t("username")}
                   autoComplete="username"
-                  className="mt-2 h-11 rounded-lg bg-[#111827] border border-[#2D3748] text-white placeholder:text-gray-400 shadow-inner focus-visible:ring-2 focus-visible:ring-[#7A00FF]"
+                  className="mt-2 h-12 rounded-xl bg-[#0B1220]/60 border border-white/15 text-white placeholder:text-white/50 shadow-inner transition-colors duration-200 focus:border-cyan-400 focus-visible:ring-2 focus-visible:ring-cyan-400/40"
                   {...register("username")}
                 />
                 {errors.username && (
@@ -164,14 +168,24 @@ export default function Login() {
                 <Label htmlFor="password" className="text-white/80">
                   {t("password")}
                 </Label>
-                <Input
-                  id="password"
-                  type="password"
-                  placeholder={t("password")}
-                  autoComplete="current-password"
-                  className="mt-2 h-11 rounded-lg bg-[#111827] border border-[#2D3748] text-white placeholder:text-gray-400 shadow-inner focus-visible:ring-2 focus-visible:ring-[#FF0057]"
-                  {...register("password")}
-                />
+                <div className="relative mt-2">
+                  <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    placeholder={t("password")}
+                    autoComplete="current-password"
+                    className="h-12 rounded-xl bg-[#0B1220]/60 border border-white/15 text-white placeholder:text-white/50 shadow-inner transition-colors duration-200 focus:border-cyan-400 focus-visible:ring-2 focus-visible:ring-cyan-400/40 pr-10"
+                    {...register("password")}
+                  />
+                  <button
+                    type="button"
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                    onClick={() => setShowPassword((v) => !v)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-white/60 hover:text-white"
+                  >
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
+                </div>
                 {errors.password && (
                   <p className="mt-1 text-xs text-rose-400">
                     {errors.password.message}
@@ -192,9 +206,10 @@ export default function Login() {
               )}
               <Button
                 type="submit"
-                className="w-full py-3 rounded-lg font-bold text-lg bg-gradient-to-r from-[#FF0057] via-[#7A00FF] to-[#00D9FF] text-white shadow-lg shadow-[#7A00FF]/40 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-2xl"
+                className="w-full h-12 rounded-lg font-bold text-lg bg-gradient-to-r from-[#FF3C3C] via-[#C027B5] to-[#6C63FF] text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-2xl"
                 disabled={isSubmitting}
               >
+                {isSubmitting && <Loader2 className="mr-2 h-5 w-5 animate-spin" />}
                 {isSubmitting ? t("signingIn") : t("login")}
               </Button>
             </form>
@@ -249,43 +264,28 @@ function Decor() {
           <stop offset="50%" stopColor="#a78bfa" />
           <stop offset="100%" stopColor="#f472b6" />
         </linearGradient>
-        <radialGradient
-          id="r1"
-          cx="0"
-          cy="0"
-          r="1"
-          gradientUnits="userSpaceOnUse"
-          gradientTransform="translate(200,150) rotate(45) scale(400)"
-        >
+        <radialGradient id="r1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(200,150) rotate(45) scale(400)">
           <stop offset="0%" stopColor="#93c5fd" stopOpacity="0.6" />
           <stop offset="100%" stopColor="#93c5fd" stopOpacity="0" />
         </radialGradient>
-        <radialGradient
-          id="r2"
-          cx="0"
-          cy="0"
-          r="1"
-          gradientUnits="userSpaceOnUse"
-          gradientTransform="translate(1000,650) rotate(-30) scale(500)"
-        >
+        <radialGradient id="r2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1000,650) rotate(-30) scale(500)">
           <stop offset="0%" stopColor="#fda4af" stopOpacity="0.5" />
           <stop offset="100%" stopColor="#fda4af" stopOpacity="0" />
+        </radialGradient>
+        <radialGradient id="rCenter" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(600,400) scale(600)">
+          <stop offset="0%" stopColor="#ffffff" stopOpacity="0.14" />
+          <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
         </radialGradient>
         <filter id="blur" x="-50%" y="-50%" width="200%" height="200%">
           <feGaussianBlur stdDeviation="60" />
         </filter>
       </defs>
-      <g opacity="0.5">
+      <g opacity="0.45" className="animate-float-slow">
         <circle cx="200" cy="150" r="300" fill="url(#r1)" filter="url(#blur)" />
-        <circle
-          cx="1000"
-          cy="650"
-          r="350"
-          fill="url(#r2)"
-          filter="url(#blur)"
-        />
+        <circle cx="1000" cy="650" r="350" fill="url(#r2)" filter="url(#blur)" />
+        <circle cx="600" cy="400" r="380" fill="url(#rCenter)" filter="url(#blur)" className="opacity-60" />
       </g>
-      <g fill="none" stroke="url(#g)" strokeOpacity="0.25">
+      <g fill="none" stroke="url(#g)" strokeOpacity="0.12" className="animate-float-slower">
         <path d="M0 700 L300 500 600 650 900 450 1200 600" />
         <path d="M0 500 L250 350 500 500 750 350 1000 500 1200 400" />
         <path d="M0 300 L300 200 600 300 900 200 1200 250" />
