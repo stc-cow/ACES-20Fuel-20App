@@ -5,7 +5,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useI18n } from "@/i18n";
 import { Link } from "react-router-dom";
 import { Settings as SettingsIcon } from "lucide-react";
-import { useI18n } from "@/i18n";
 
 export default function SettingsIndexPage() {
   const { t } = useI18n();
