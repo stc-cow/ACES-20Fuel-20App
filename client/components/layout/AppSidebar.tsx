@@ -71,7 +71,7 @@ function AppSidebar() {
             <img
               src="https://cdn.builder.io/api/v1/image/assets%2Fbd65b3cd7a86452e803a3d7dc7a3d048%2F88c65af5aa594e4eb74b03e70886ef92?format=webp&width=1200"
               alt="ACES Managed Services"
-              className="w-full h-auto drop-shadow-[0_0_10px_rgba(255,255,255,0.18)]"
+              className="h-auto w-[140px] mx-auto drop-shadow-[0_0_10px_rgba(255,255,255,0.18)]"
               loading="eager"
               decoding="async"
             />
