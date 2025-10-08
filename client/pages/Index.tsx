@@ -6,6 +6,7 @@ import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 import { ChartContainer } from "@/components/ui/chart";
 import { SitesTable } from "@/components/dashboard/SitesTable";
 import { useKpis, useStatusPie, useZonePie } from "@/hooks/useDashboard";
+import { useState } from "react";
 
 const STATUS_COLORS = ["#f43f5e", "#fb923c", "#22c55e", "#06b6d4", "#a3a3a3", "#8b5cf6"];
 const ZONE_COLORS = ["#8b5cf6", "#06b6d4", "#f59e0b", "#22c55e", "#ef4444", "#0ea5e9"];
@@ -15,6 +16,7 @@ export default function Index() {
   const { data: kpis } = useKpis();
   const { data: statusData } = useStatusPie();
   const { data: zoneData } = useZonePie();
+  const [showSitesOverview, setShowSitesOverview] = useState(false);
 
   const cards = [
     { key: "totalLitersToday", value: `${(kpis?.litersToday ?? 0).toFixed(2)} liters`, bg: "bg-rose-500" },
@@ -76,9 +78,19 @@ export default function Index() {
           </Card>
         </div>
 
-        <div className="mt-6">
-          <SitesTable sourceUrl="https://docs.google.com/spreadsheets/d/e/2PACX-1vS0GkXnQMdKYZITuuMsAzeWDtGUqEJ3lWwqNdA67NewOsDOgqsZHKHECEEkea4nrukx4-DqxKmf62nC/pubhtml?gid=1149576218&single=true" />
+        <div className="mt-6 flex items-center">
+          <button
+            onClick={() => setShowSitesOverview((v) => !v)}
+            className="inline-flex items-center rounded border px-3 py-1.5 text-sm hover:bg-muted"
+          >
+            {showSitesOverview ? t("hideSitesOverview") : t("showSitesOverview")}
+          </button>
         </div>
+        {showSitesOverview && (
+          <div className="mt-4">
+            <SitesTable sourceUrl="https://docs.google.com/spreadsheets/d/e/2PACX-1vS0GkXnQMdKYZITuuMsAzeWDtGUqEJ3lWwqNdA67NewOsDOgqsZHKHECEEkea4nrukx4-DqxKmf62nC/pubhtml?gid=1149576218&single=true" />
+          </div>
+        )}
       </div>
     </AppShell>
   );
