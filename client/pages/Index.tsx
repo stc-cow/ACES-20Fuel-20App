@@ -4,7 +4,6 @@ import { useI18n } from "@/i18n";
 import { AppShell } from "@/components/layout/AppSidebar";
 import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 import { ChartContainer } from "@/components/ui/chart";
-import { SitesTable } from "@/components/dashboard/SitesTable";
 import { useKpis, useStatusPie, useZonePie } from "@/hooks/useDashboard";
 import { useState } from "react";
 
@@ -30,8 +29,7 @@ export default function Index() {
   const { data: kpis } = useKpis();
   const { data: statusData } = useStatusPie();
   const { data: zoneData } = useZonePie();
-  const [showSitesOverview, setShowSitesOverview] = useState(false);
-
+  
   const cards = [
     {
       key: "totalLitersToday",
@@ -157,21 +155,6 @@ export default function Index() {
           </Card>
         </div>
 
-        <div className="mt-6 flex items-center">
-          <button
-            onClick={() => setShowSitesOverview((v) => !v)}
-            className="inline-flex items-center rounded bg-[#E60000] px-4 py-2 text-sm font-medium text-white hover:opacity-90"
-          >
-            {showSitesOverview
-              ? t("hideSitesOverview")
-              : t("showSitesOverview")}
-          </button>
-        </div>
-        {showSitesOverview && (
-          <div className="mt-4">
-            <SitesTable sourceUrl="https://docs.google.com/spreadsheets/d/e/2PACX-1vS0GkXnQMdKYZITuuMsAzeWDtGUqEJ3lWwqNdA67NewOsDOgqsZHKHECEEkea4nrukx4-DqxKmf62nC/pubhtml?gid=1149576218&single=true" />
-          </div>
-        )}
       </div>
     </AppShell>
   );
