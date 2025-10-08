@@ -83,7 +83,7 @@ function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton asChild isActive={isActive("/")}>
+                <SidebarMenuButton asChild isActive={isActive("/")} className={cn("hover:bg-[#102B57]", isActive("/") && "border-l-4 border-[#E60000]")}>
                   <Link to="/" className="flex items-center">
                     <span className="font-bold text-white">
                       {t("dashboard")}
@@ -93,7 +93,7 @@ function AppSidebar() {
               </SidebarMenuItem>
               {isAdmin && (
                 <SidebarMenuItem>
-                  <SidebarMenuButton asChild isActive={isActive("/users")}>
+                  <SidebarMenuButton asChild isActive={isActive("/users")} className={cn("hover:bg-[#102B57]", isActive("/users") && "border-l-4 border-[#E60000]")}>
                     <Link to="/users" className="flex items-center">
                       <span className="font-bold text-white">
                         {t("usersAuth")}
@@ -103,7 +103,7 @@ function AppSidebar() {
                 </SidebarMenuItem>
               )}
               <SidebarMenuItem>
-                <SidebarMenuButton asChild isActive={isActive("/missions")}>
+                <SidebarMenuButton asChild isActive={isActive("/missions")} className={cn("hover:bg-[#102B57]", isActive("/missions") && "border-l-4 border-[#E60000]")}>
                   <Link to="/missions" className="flex items-center">
                     <span className="font-bold text-white">
                       {t("missions")}
@@ -112,7 +112,7 @@ function AppSidebar() {
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton asChild isActive={isActive("/employees")}>
+                <SidebarMenuButton asChild isActive={isActive("/employees")} className={cn("hover:bg-[#102B57]", isActive("/employees") && "border-l-4 border-[#E60000]")}>
                   <Link to="/employees" className="flex items-center">
                     <span className="font-bold text-white">
                       {t("employees")}
@@ -121,14 +121,14 @@ function AppSidebar() {
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton asChild isActive={isActive("/sites")}>
+                <SidebarMenuButton asChild isActive={isActive("/sites")} className={cn("hover:bg-[#102B57]", isActive("/sites") && "border-l-4 border-[#E60000]")}>
                   <Link to="/sites" className="flex items-center">
                     <span className="font-bold text-white">{t("sites")}</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton asChild isActive={isActive("/reports")}>
+                <SidebarMenuButton asChild isActive={isActive("/reports")} className={cn("hover:bg-[#102B57]", isActive("/reports") && "border-l-4 border-[#E60000]")}>
                   <Link to="/reports" className="flex items-center">
                     <span className="font-bold text-white">{t("reports")}</span>
                   </Link>
@@ -138,6 +138,7 @@ function AppSidebar() {
                 <SidebarMenuButton
                   asChild
                   isActive={isActive("/notifications")}
+                  className={cn("hover:bg-[#102B57]", isActive("/notifications") && "border-l-4 border-[#E60000]")}
                 >
                   <Link to="/notifications" className="flex items-center">
                     <span className="font-bold text-white">
@@ -147,7 +148,7 @@ function AppSidebar() {
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton asChild isActive={isActive("/settings")}>
+                <SidebarMenuButton asChild isActive={isActive("/settings")} className={cn("hover:bg-[#102B57]", isActive("/settings") && "border-l-4 border-[#E60000]")}>
                   <Link to="/settings" className="flex items-center">
                     <span className="font-bold text-white">
                       {t("settings")}
