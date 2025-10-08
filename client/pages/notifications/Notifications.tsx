@@ -120,7 +120,7 @@ export default function NotificationsPage() {
                 <Button
                   onClick={onSubmit}
                   disabled={submitting}
-                  className="bg-sky-600 hover:bg-sky-500"
+                  className="bg-[#E60000] hover:opacity-90"
                 >
                   <Send className="mr-2 h-4 w-4" />{" "}
                   {submitting ? "Sending..." : "Send"}
