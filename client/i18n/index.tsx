@@ -7,7 +7,7 @@ import React, {
   useState,
 } from "react";
 
-export type Lang = "en";
+export type Lang = "en" | "ar";
 
 type Dict = Record<string, string>;
 
@@ -63,6 +63,8 @@ const en: Dict = {
   stcCow30: "Stc-cow – Last 30 Days",
   totalTasksStatusCount: "Total tasks status count",
   totalTasksZonesCount: "Total tasks zones count",
+  activeMissions: "Active Missions",
+  activeDrivers: "Active Drivers",
   noDataYet: "No data yet",
   manageAdminsIntro:
     "Manage who can log in to Administrative and Authorizations",
@@ -150,13 +152,15 @@ const ar: Dict = {
   enterEmailToReset: "أدخل بريدك الإلكتروني لاستلام رابط إعادة التعيين",
   sendResetLink: "إرسال رابط إعادة التعيين",
   cancel: "إلغاء",
-  resetEmailSent: "إذا كان الحساب موجودًا، فقد ��م إرسال رسالة إعادة التعيين.",
+  resetEmailSent: "إذا كان الحساب موجودًا، فقد تم إرسال رسالة إعادة التعيين.",
   invalidEmail: "يرجى إدخال بريد إلكتروني صالح.",
   totalLitersToday: "إجمالي اللترات المضافة اليوم",
   totalLiters30: "إجمالي اللترات المضافة خلال آخر 30 يومًا",
   stcCow30: "Stc-cow – آخر 30 يومًا",
   totalTasksStatusCount: "إجمالي عدد حالات المهام",
   totalTasksZonesCount: "إجمالي عدد المناطق للمهام",
+  activeMissions: "المهام النشطة",
+  activeDrivers: "السائقون النشطون",
   noDataYet: "لا توجد بيانات بعد",
   manageAdminsIntro: "إدارة من يمكنه تسجيل الدخول إلى الإدارة والصلاحيات",
   export: "تصدير",
@@ -204,119 +208,27 @@ const ar: Dict = {
   powerSource: "مصدر الطاقة",
 };
 
-const ur: Dict = {
-  dashboard: "ڈیش بورڈ",
-  usersAuth: "صارفین اور اجازتیں",
-  missions: "مشنز",
-  employees: "ملازمین",
-  drivers: "ڈرائیورز",
-  technicians: "ٹیکنیشنز",
-  sites: "سائٹس",
-  generators: "جنریٹرز",
-  reports: "رپورٹس",
-  notifications: "اطلاعات",
-  settings: "سیٹنگز",
-  settingsGeneral: "عمومی سیٹنگز",
-  settingsCities: "شہر",
-  settingsZones: "زونز",
-  settingsAdminLog: "ایڈمن لاگ",
-  adminUsers: "ایڈمن یوزرز",
-  authorizations: "اجازت نامے",
-  generalSettings: "عمومی سیٹنگز",
-  literPrice: "فی لیٹر قیمت",
-  maxDistance: "اسٹیشن سے تصدیق کے لیے زیادہ سے زیادہ فاصلہ",
-  language: "زبان",
-  save: "محفوظ کریں",
-  saving: "محفوظ کیا ��ا رہا ہے...",
-  signInTitle: "سپر ایڈمن میں سائن ان کریں",
-  signInSubtitle: "اپنے اکاؤنٹ میں سائن ان کرنے کے لیے تفصیلات درج کریں",
-  username: "صارف نام",
-  password: "پاس ورڈ",
-  rememberMe: "مجھے یاد رکھیں",
-  forgotPassword: "پاس ورڈ بھول گئے؟",
-  login: "لاگ ان",
-  signingIn: "لاگ ان کیا جا رہا ہے...",
-  searchPlaceholder: "تلاش…",
-  signedInAs: "کے طور پر سائن ان",
-  logout: "لاگ آؤٹ",
-  resetPassword: "پاس ورڈ ری سیٹ کریں",
-  enterEmailToReset: "ری سیٹ لنک کے لیے اپنا ای میل درج کریں",
-  sendResetLink: "ری سیٹ لنک بھیجیں",
-  cancel: "منسوخ",
-  resetEmailSent: "اگر اکاؤنٹ موجود ہے تو ری سیٹ ای میل بھ��ج دی گئی ہے۔",
-  invalidEmail: "براہ کرم درست ای میل درج کریں۔",
-  totalLitersToday: "آج شامل کل لیٹر",
-  totalLiters30: "گزشتہ 30 دنوں میں شامل کل لیٹر",
-  stcCow30: "Stc-cow – گزشتہ 30 دن",
-  totalTasksStatusCount: "کل ٹاسک اسٹیٹس شمار",
-  totalTasksZonesCount: "کل زونز کے ٹاسک شمار",
-  noDataYet: "ابھی کوئی ڈیٹا نہیں",
-  manageAdminsIntro: "انتظامیہ اور اجازتوں میں لاگ ان کی اہلیت مینیج کریں",
-  export: "ایکسپورٹ",
-  columns: "کالمز",
-  add: "اضافہ",
-  excelPrintColumnVisibility: "ایکسسل | پرنٹ | کالم نظر",
-  search: "تلاش",
-  email: "ای میل",
-  webAuthorization: "ویب اجازت",
-  settingsCol: "سیٹنگز",
-  noResults: "کوئی نتیجہ نہیں",
-  showing: "دکھا رہا ہے",
-  of: "میں سے",
-  entries: "اندراجات",
-  prev: "پچھلا",
-  next: "اگلا",
-  loading: "لوڈ ہو رہا ہے...",
-  failedToLoad: "لوڈ کرنے میں ناکام۔",
-  addUser: "نیا صارف شامل کریں",
-  editUser: "صارف میں ترمیم",
-  required: "یہ فیلڈ لازمی ہے۔",
-  edit: "ترمیم",
-  delete: "حذف",
-  hide: "چھپائیں",
-  show: "دکھائیں",
-  settingName: "سیٹنگ کا نام",
-  editSetting: "سیٹنگ میں ترمیم",
-  details: "تفصیلات",
-  setting: "سیٹنگ",
-  name: "نام",
-  position: "پوزیشن",
-  admin: "ایڈمن",
-  user: "صارف",
-  time: "وقت",
-  sync: "ہم آہنگ کریں",
-  sitesOverview: "سائٹس ک�� جائزہ",
-  siteName: "سائٹ کا نام",
-  vendor: "وینڈر",
-  region: "ریجن",
-  district: "ضلعی",
-  city: "شہر",
-  cowStatus: "COW اسٹیٹس",
-  latitude: "لاٹیٹیوڈ",
-  longitude: "لانگیٹیوڈ",
-  powerSource: "پاور سورس",
-};
-
-const dictionaries: Record<Lang, Dict> = { en };
+const dictionaries: Record<Lang, Dict> = { en, ar };
 
 const I18nContext = createContext<I18nContextType | undefined>(undefined);
 
 function getInitialLang(): Lang {
-  return "en";
+  const saved = typeof window !== "undefined" ? localStorage.getItem("lang") : null;
+  return (saved === "ar" ? "ar" : "en");
 }
 
 export function I18nProvider({ children }: { children: React.ReactNode }) {
   const [lang, setLangState] = useState<Lang>(getInitialLang());
 
   useEffect(() => {
-    document.documentElement.dir = "ltr";
-  }, []);
+    document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+    document.documentElement.lang = lang;
+    localStorage.setItem("lang", lang);
+  }, [lang]);
 
-  const setLang = useCallback((_l: Lang) => {
-    // no-op in single-language mode
+  const setLang = useCallback((l: Lang) => {
+    setLangState(l);
   }, []);
-
-  // language change listeners removed in single-language mode
 
   const t = useCallback(
     (key: string) => {
