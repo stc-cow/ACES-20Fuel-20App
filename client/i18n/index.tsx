@@ -111,6 +111,8 @@ const en: Dict = {
   latitude: "Latitude",
   longitude: "Longitude",
   powerSource: "Power source",
+  showSitesOverview: "Show Sites Overview",
+  hideSitesOverview: "Hide Sites Overview",
 };
 
 const ar: Dict = {
@@ -131,7 +133,7 @@ const ar: Dict = {
   settingsAdminLog: "سجل المشرف",
   adminUsers: "مستخدمو المشرف",
   authorizations: "الصلاحيات",
-  generalSettings: "الإعدادات العامة",
+  generalSettings: "الإ��دادات العامة",
   literPrice: "سعر اللتر",
   maxDistance: "أقصى مسافة من المحطة لتأكيد المهمة",
   language: "اللغة",
@@ -154,7 +156,7 @@ const ar: Dict = {
   cancel: "إلغاء",
   resetEmailSent: "إذا كان الحساب موجودًا، فقد تم إرسال رسالة إعادة التعيين.",
   invalidEmail: "يرجى إدخال بريد إلكتروني صالح.",
-  totalLitersToday: "إجمالي اللترات المضافة اليوم",
+  totalLitersToday: "إجمالي اللترات ا��مضافة اليوم",
   totalLiters30: "إجمالي اللترات المضافة خلال آخر 30 يومًا",
   stcCow30: "Stc-cow – آخر 30 يومًا",
   totalTasksStatusCount: "إجمالي عدد حالات المهام",
@@ -206,6 +208,8 @@ const ar: Dict = {
   latitude: "خط العرض",
   longitude: "خط الطول",
   powerSource: "مصدر الطاقة",
+  showSitesOverview: "عرض نظرة عامة على المواقع",
+  hideSitesOverview: "إخفاء نظرة عامة على المواقع",
 };
 
 const dictionaries: Record<Lang, Dict> = { en, ar };
