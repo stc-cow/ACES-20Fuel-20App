@@ -20,6 +20,7 @@ import {
 import { useI18n } from "@/i18n";
 import { toast } from "@/hooks/use-toast";
 import { Loader2, Eye, EyeOff } from "lucide-react";
+import Login3DBackground from "@/components/visual/Login3DBackground";
 
 const schema = z.object({
   username: z.string().min(1, "Username is required"),
