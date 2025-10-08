@@ -167,7 +167,7 @@ export default function ReportsPage() {
     <AppShell>
       <Header />
       <div className="px-4 pb-10 pt-4">
-        <div className="mb-4 text-sm text-muted-foreground">Fuel Supplier Invoice (approved missions)</div>
+        <div className="mb-4 text-sm font-bold text-[#0C2340]">Fuel Supplier Invoice</div>
 
         <Card>
           <CardContent className="p-4">
@@ -231,7 +231,7 @@ export default function ReportsPage() {
             </div>
 
             <div className="mt-4 flex items-center justify-end">
-              <Button variant="secondary" onClick={exportCsv}>
+              <Button className="bg-[#E60000] hover:opacity-90" onClick={exportCsv}>
                 <Download className="mr-2 h-4 w-4" /> Export Invoice
               </Button>
             </div>
