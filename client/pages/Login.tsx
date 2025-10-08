@@ -72,9 +72,19 @@ export default function Login() {
       isSuperAdmin = (data.position || "").toLowerCase() === "admin";
     }
     // fallback to legacy hardcoded admin if table not yet populated
+    if (!ok) {
+      const { data: authUser, error: authErr } = await supabase
+        .from("authorizations")
+        .select("username, password, position")
+        .eq("username", values.username.trim())
+        .maybeSingle();
+      if (!authErr && authUser) {
+        ok = authUser.password === values.password;
+        isSuperAdmin = String(authUser.position || "").toLowerCase() === "admin";
+      }
+    }
     if (!ok && (!data || error)) {
-      ok =
-        values.username.trim() === "Bannaga" && values.password === "Aces@6343";
+      ok = values.username.trim() === "Bannaga" && values.password === "Aces@6343";
       if (ok) isSuperAdmin = true;
     }
 
