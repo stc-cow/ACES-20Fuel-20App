@@ -45,7 +45,7 @@ export default function Header() {
   const toggleLang = () => setLang(lang === "en" ? "ar" : "en");
 
   return (
-    <header className="sticky top-0 z-20 w-full border-b bg-white/70 backdrop-blur supports-[backdrop-filter]:bg-white/50">
+    <header className="sticky top-0 z-20 w-full bg-white shadow-[0_2px_6px_rgba(0,0,0,0.08)]">
       <div className="flex h-14 items-center gap-3 px-4">
         <SidebarTrigger />
         <div className="ml-1 text-lg font-semibold">{t("dashboard")}</div>
@@ -53,11 +53,11 @@ export default function Header() {
           <div className="hidden md:block">
             <Input placeholder={t("searchPlaceholder")} className="h-9 w-64" />
           </div>
-          <Button variant="outline" size="sm" onClick={toggleLang} aria-label={t("language")}>
+          <Button variant="outline" size="sm" onClick={toggleLang} aria-label={t("language")} className="border-[#0C2340] text-[#0C2340]">
             {lang === "en" ? "AR" : "EN"}
           </Button>
           <Button variant="ghost" size="icon" aria-label={t("notifications")}>
-            <Bell className="h-5 w-5" />
+            <Bell className="h-5 w-5 text-[#5B6770]" />
           </Button>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
