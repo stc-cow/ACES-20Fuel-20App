@@ -3,7 +3,14 @@ import Header from "@/components/layout/Header";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { useEffect, useMemo, useState } from "react";
 import { Download } from "lucide-react";
 import { supabase } from "@/lib/supabase";
@@ -44,12 +51,22 @@ export default function ReportsPage() {
     id: 1,
   });
 
-  const subtotal = useMemo(() => lines.reduce((s, l) => s + l.linePrice, 0), [lines]);
-  const total = useMemo(() => subtotal * (1 + (settings.vat_rate ?? 0)), [subtotal, settings]);
+  const subtotal = useMemo(
+    () => lines.reduce((s, l) => s + l.linePrice, 0),
+    [lines],
+  );
+  const total = useMemo(
+    () => subtotal * (1 + (settings.vat_rate ?? 0)),
+    [subtotal, settings],
+  );
 
   useEffect(() => {
     (async () => {
-      const { data } = await supabase.from("settings").select("*").limit(1).maybeSingle();
+      const { data } = await supabase
+        .from("settings")
+        .select("*")
+        .limit(1)
+        .maybeSingle();
       if (data) {
         setSettings((s) => ({
           id: Number(data.id ?? 1),
@@ -76,12 +93,14 @@ export default function ReportsPage() {
       return;
     }
 
-    const filters: any[] = [ { column: "task_id", op: "in", value: taskIds } ];
-    const q = supabase.from("driver_task_entries").select("task_id, liters_added, timestamp");
+    const filters: any[] = [{ column: "task_id", op: "in", value: taskIds }];
+    const q = supabase
+      .from("driver_task_entries")
+      .select("task_id, liters_added, timestamp");
     if (fromDate) q.gte("timestamp", new Date(fromDate).toISOString());
     if (toDate) {
       const end = new Date(toDate);
-      end.setHours(23,59,59,999);
+      end.setHours(23, 59, 59, 999);
       q.lte("timestamp", end.toISOString());
     }
     const { data: entries } = await q;
@@ -110,7 +129,11 @@ export default function ReportsPage() {
           linePrice: agg.liters * unit,
         };
       })
-      .filter((l) => (siteQuery ? l.siteName.toLowerCase().includes(siteQuery.toLowerCase()) : true))
+      .filter((l) =>
+        siteQuery
+          ? l.siteName.toLowerCase().includes(siteQuery.toLowerCase())
+          : true,
+      )
       .filter((l) => (region ? l.region === region : true))
       .filter((l) => l.liters > 0);
 
@@ -141,12 +164,39 @@ export default function ReportsPage() {
     ].join(",");
 
     const rows = lines
-      .map((l) => [invNo, settings.supplier_name, fromDate, toDate, l.siteName, l.region, l.date, l.liters, l.unitPrice, l.linePrice])
+      .map((l) => [
+        invNo,
+        settings.supplier_name,
+        fromDate,
+        toDate,
+        l.siteName,
+        l.region,
+        l.date,
+        l.liters,
+        l.unitPrice,
+        l.linePrice,
+      ])
       .map((arr) => arr.join(","));
 
-    const totalsRow = ["", "", "", "", "", "", "", "", "", "", subtotal, settings.vat_rate, total].join(",");
+    const totalsRow = [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      subtotal,
+      settings.vat_rate,
+      total,
+    ].join(",");
 
-    const blob = new Blob([head + "\n" + rows.join("\n") + "\n" + totalsRow], { type: "text/csv;charset=utf-8;" });
+    const blob = new Blob([head + "\n" + rows.join("\n") + "\n" + totalsRow], {
+      type: "text/csv;charset=utf-8;",
+    });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
@@ -159,7 +209,10 @@ export default function ReportsPage() {
         .from("settings")
         .update({ invoice_sequence: (settings.invoice_sequence || 1) + 1 })
         .eq("id", settings.id || 1);
-      setSettings((s) => ({ ...s, invoice_sequence: (s.invoice_sequence || 1) + 1 }));
+      setSettings((s) => ({
+        ...s,
+        invoice_sequence: (s.invoice_sequence || 1) + 1,
+      }));
     } catch {}
   };
 
@@ -167,26 +220,48 @@ export default function ReportsPage() {
     <AppShell>
       <Header />
       <div className="px-4 pb-10 pt-4">
-        <div className="mb-4 text-sm font-bold text-[#0C2340]">Fuel Supplier Invoice</div>
+        <div className="mb-4 text-sm font-bold text-[#0C2340]">
+          Fuel Supplier Invoice
+        </div>
 
         <Card>
           <CardContent className="p-4">
             <div className="grid grid-cols-1 gap-3 md:grid-cols-4">
               <div>
                 <div className="text-xs text-muted-foreground">From Date</div>
-                <Input type="date" value={fromDate} onChange={(e) => setFromDate(e.target.value)} className="mt-1" />
+                <Input
+                  type="date"
+                  value={fromDate}
+                  onChange={(e) => setFromDate(e.target.value)}
+                  className="mt-1"
+                />
               </div>
               <div>
                 <div className="text-xs text-muted-foreground">To Date</div>
-                <Input type="date" value={toDate} onChange={(e) => setToDate(e.target.value)} className="mt-1" />
+                <Input
+                  type="date"
+                  value={toDate}
+                  onChange={(e) => setToDate(e.target.value)}
+                  className="mt-1"
+                />
               </div>
               <div>
                 <div className="text-xs text-muted-foreground">Site</div>
-                <Input value={siteQuery} onChange={(e) => setSiteQuery(e.target.value)} placeholder="Filter by site name" className="mt-1" />
+                <Input
+                  value={siteQuery}
+                  onChange={(e) => setSiteQuery(e.target.value)}
+                  placeholder="Filter by site name"
+                  className="mt-1"
+                />
               </div>
               <div>
                 <div className="text-xs text-muted-foreground">Region/Zone</div>
-                <Input value={region} onChange={(e) => setRegion(e.target.value)} placeholder="e.g. East" className="mt-1" />
+                <Input
+                  value={region}
+                  onChange={(e) => setRegion(e.target.value)}
+                  placeholder="e.g. East"
+                  className="mt-1"
+                />
               </div>
             </div>
 
@@ -205,14 +280,19 @@ export default function ReportsPage() {
                 <TableBody>
                   {lines.length === 0 && (
                     <TableRow>
-                      <TableCell colSpan={6} className="text-center text-sm text-muted-foreground">
+                      <TableCell
+                        colSpan={6}
+                        className="text-center text-sm text-muted-foreground"
+                      >
                         No data
                       </TableCell>
                     </TableRow>
                   )}
                   {lines.map((l, i) => (
                     <TableRow key={`${l.taskId}-${i}`}>
-                      <TableCell className="font-medium">{l.siteName}</TableCell>
+                      <TableCell className="font-medium">
+                        {l.siteName}
+                      </TableCell>
                       <TableCell>{l.region}</TableCell>
                       <TableCell>{l.date}</TableCell>
                       <TableCell>{l.liters.toFixed(2)}</TableCell>
@@ -226,12 +306,20 @@ export default function ReportsPage() {
 
             <div className="mt-4 grid grid-cols-1 gap-2 md:grid-cols-3">
               <div className="text-sm">Subtotal: {subtotal.toFixed(2)}</div>
-              <div className="text-sm">VAT ({((settings.vat_rate ?? 0) * 100).toFixed(0)}%): {(subtotal * (settings.vat_rate ?? 0)).toFixed(2)}</div>
-              <div className="text-sm font-semibold">Total with VAT: {total.toFixed(2)}</div>
+              <div className="text-sm">
+                VAT ({((settings.vat_rate ?? 0) * 100).toFixed(0)}%):{" "}
+                {(subtotal * (settings.vat_rate ?? 0)).toFixed(2)}
+              </div>
+              <div className="text-sm font-semibold">
+                Total with VAT: {total.toFixed(2)}
+              </div>
             </div>
 
             <div className="mt-4 flex items-center justify-end">
-              <Button className="bg-[#E60000] hover:opacity-90" onClick={exportCsv}>
+              <Button
+                className="bg-[#E60000] hover:opacity-90"
+                onClick={exportCsv}
+              >
                 <Download className="mr-2 h-4 w-4" /> Export Invoice
               </Button>
             </div>

@@ -147,7 +147,10 @@ export default function Login() {
               </p>
               <div className="border-t border-black/10 my-4" />
             </div>
-            <form onSubmit={handleSubmit(onSubmit)} className={"space-y-5 " + (authError ? "animate-shake" : "")}>
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className={"space-y-5 " + (authError ? "animate-shake" : "")}
+            >
               <div>
                 <Label htmlFor="username" className="text-black/70">
                   {t("username")}
@@ -180,7 +183,9 @@ export default function Login() {
                   />
                   <button
                     type="button"
-                    aria-label={showPassword ? "Hide password" : "Show password"}
+                    aria-label={
+                      showPassword ? "Hide password" : "Show password"
+                    }
                     onClick={() => setShowPassword((v) => !v)}
                     className="absolute right-3 top-1/2 -translate-y-1/2 text-black/60 hover:text-black"
                   >
@@ -210,7 +215,9 @@ export default function Login() {
                 className="w-full h-12 rounded-lg font-bold text-lg bg-[linear-gradient(90deg,#ff3b3b,#6c63ff)] text-white shadow-[0_3px_12px_rgba(108,99,255,0.3)] transition-all duration-300 hover:-translate-y-0.5 hover:opacity-95"
                 disabled={isSubmitting}
               >
-                {isSubmitting && <Loader2 className="mr-2 h-5 w-5 animate-spin" />}
+                {isSubmitting && (
+                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                )}
                 {isSubmitting ? t("signingIn") : t("login")}
               </Button>
             </form>
@@ -265,15 +272,36 @@ function Decor() {
           <stop offset="50%" stopColor="#a78bfa" />
           <stop offset="100%" stopColor="#f472b6" />
         </linearGradient>
-        <radialGradient id="r1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(200,150) rotate(45) scale(400)">
+        <radialGradient
+          id="r1"
+          cx="0"
+          cy="0"
+          r="1"
+          gradientUnits="userSpaceOnUse"
+          gradientTransform="translate(200,150) rotate(45) scale(400)"
+        >
           <stop offset="0%" stopColor="#93c5fd" stopOpacity="0.6" />
           <stop offset="100%" stopColor="#93c5fd" stopOpacity="0" />
         </radialGradient>
-        <radialGradient id="r2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1000,650) rotate(-30) scale(500)">
+        <radialGradient
+          id="r2"
+          cx="0"
+          cy="0"
+          r="1"
+          gradientUnits="userSpaceOnUse"
+          gradientTransform="translate(1000,650) rotate(-30) scale(500)"
+        >
           <stop offset="0%" stopColor="#fda4af" stopOpacity="0.5" />
           <stop offset="100%" stopColor="#fda4af" stopOpacity="0" />
         </radialGradient>
-        <radialGradient id="rCenter" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(600,400) scale(600)">
+        <radialGradient
+          id="rCenter"
+          cx="0"
+          cy="0"
+          r="1"
+          gradientUnits="userSpaceOnUse"
+          gradientTransform="translate(600,400) scale(600)"
+        >
           <stop offset="0%" stopColor="#ffffff" stopOpacity="0.14" />
           <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
         </radialGradient>
@@ -283,10 +311,28 @@ function Decor() {
       </defs>
       <g opacity="0.45" className="animate-float-slow">
         <circle cx="200" cy="150" r="300" fill="url(#r1)" filter="url(#blur)" />
-        <circle cx="1000" cy="650" r="350" fill="url(#r2)" filter="url(#blur)" />
-        <circle cx="600" cy="400" r="380" fill="url(#rCenter)" filter="url(#blur)" className="opacity-60" />
+        <circle
+          cx="1000"
+          cy="650"
+          r="350"
+          fill="url(#r2)"
+          filter="url(#blur)"
+        />
+        <circle
+          cx="600"
+          cy="400"
+          r="380"
+          fill="url(#rCenter)"
+          filter="url(#blur)"
+          className="opacity-60"
+        />
       </g>
-      <g fill="none" stroke="url(#g)" strokeOpacity="0.12" className="animate-float-slower">
+      <g
+        fill="none"
+        stroke="url(#g)"
+        strokeOpacity="0.12"
+        className="animate-float-slower"
+      >
         <path d="M0 700 L300 500 600 650 900 450 1200 600" />
         <path d="M0 500 L250 350 500 500 750 350 1000 500 1200 400" />
         <path d="M0 300 L300 200 600 300 900 200 1200 250" />

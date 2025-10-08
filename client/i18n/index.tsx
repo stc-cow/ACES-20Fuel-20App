@@ -217,8 +217,9 @@ const dictionaries: Record<Lang, Dict> = { en, ar };
 const I18nContext = createContext<I18nContextType | undefined>(undefined);
 
 function getInitialLang(): Lang {
-  const saved = typeof window !== "undefined" ? localStorage.getItem("lang") : null;
-  return (saved === "ar" ? "ar" : "en");
+  const saved =
+    typeof window !== "undefined" ? localStorage.getItem("lang") : null;
+  return saved === "ar" ? "ar" : "en";
 }
 
 export function I18nProvider({ children }: { children: React.ReactNode }) {

@@ -12,7 +12,9 @@ export default function EmployeesIndexPage() {
     <AppShell>
       <Header />
       <div className="px-4 pb-10 pt-4">
-        <div className="mb-4 text-sm text-muted-foreground">{t("employees")}</div>
+        <div className="mb-4 text-sm text-muted-foreground">
+          {t("employees")}
+        </div>
         <Card>
           <CardContent className="p-6">
             <div className="grid gap-4 sm:grid-cols-1">

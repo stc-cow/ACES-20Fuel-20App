@@ -31,7 +31,10 @@ export function useStatusPie() {
     queryFn: async () => {
       const { data } = await supabase.from("v_task_status").select("*");
       const rows = Array.isArray(data) ? data : [];
-      return rows.map((r: any) => ({ name: r.status ?? "Unknown", value: num(r.count) }));
+      return rows.map((r: any) => ({
+        name: r.status ?? "Unknown",
+        value: num(r.count),
+      }));
     },
   });
 }
@@ -42,7 +45,10 @@ export function useZonePie() {
     queryFn: async () => {
       const { data } = await supabase.from("v_task_zones").select("*");
       const rows = Array.isArray(data) ? data : [];
-      return rows.map((r: any) => ({ name: r.zone ?? "Unknown", value: num(r.count) }));
+      return rows.map((r: any) => ({
+        name: r.zone ?? "Unknown",
+        value: num(r.count),
+      }));
     },
   });
 }

@@ -53,7 +53,13 @@ export default function Header() {
           <div className="hidden md:block">
             <Input placeholder={t("searchPlaceholder")} className="h-9 w-64" />
           </div>
-          <Button variant="outline" size="sm" onClick={toggleLang} aria-label={t("language")} className="border-[#0C2340] text-[#0C2340]">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={toggleLang}
+            aria-label={t("language")}
+            className="border-[#0C2340] text-[#0C2340]"
+          >
             {lang === "en" ? "AR" : "EN"}
           </Button>
           <Button variant="ghost" size="icon" aria-label={t("notifications")}>

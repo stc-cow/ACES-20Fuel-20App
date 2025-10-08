@@ -1093,7 +1093,9 @@ export default function MissionsPage() {
                               </div>
                             </div>
                             <div className="md:col-span-3">
-                              <div className="text-xs text-[#6B7280] mb-1">Images</div>
+                              <div className="text-xs text-[#6B7280] mb-1">
+                                Images
+                              </div>
                               <div className="grid grid-cols-3 gap-2">
                                 {entryByTask[r.id]?.photo_url && (
                                   <img

@@ -193,7 +193,14 @@ export function SitesTable({
             {!loading &&
               !error &&
               rows.map((r, idx) => (
-                <TableRow key={idx} className={idx % 2 === 0 ? "bg-white" : "bg-[#F9FAFB] hover:bg-[#EEF2FF]"}>
+                <TableRow
+                  key={idx}
+                  className={
+                    idx % 2 === 0
+                      ? "bg-white"
+                      : "bg-[#F9FAFB] hover:bg-[#EEF2FF]"
+                  }
+                >
                   <TableCell className="font-medium">{r.siteName}</TableCell>
                   <TableCell>{r.vendor}</TableCell>
                   <TableCell>{r.region}</TableCell>

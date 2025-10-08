@@ -12,13 +12,16 @@ export default function SettingsIndexPage() {
     <AppShell>
       <Header />
       <div className="px-4 pb-10 pt-4">
-        <div className="mb-4 text-sm text-muted-foreground">{t("settings")}</div>
+        <div className="mb-4 text-sm text-muted-foreground">
+          {t("settings")}
+        </div>
         <Card>
           <CardContent className="p-6">
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               <Link to="/settings/general" className="block">
                 <Button variant="default" className="w-full h-20">
-                  <SettingsIcon className="mr-2 h-5 w-5" /> {t("settingsGeneral")}
+                  <SettingsIcon className="mr-2 h-5 w-5" />{" "}
+                  {t("settingsGeneral")}
                 </Button>
               </Link>
             </div>

@@ -178,7 +178,7 @@ export default function SitesPage() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    const today = new Date().toISOString().slice(0,10);
+    const today = new Date().toISOString().slice(0, 10);
     a.download = `ACES_Sites_Report_${today}.xlsx`;
     a.click();
     URL.revokeObjectURL(url);

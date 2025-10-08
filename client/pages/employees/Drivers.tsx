@@ -638,7 +638,7 @@ export default function DriversPage() {
                           >
                             <Eye className="h-4 w-4" />
                           </Button>
-                            </TableCell>
+                        </TableCell>
                       )}
                     </TableRow>
                   ))}
