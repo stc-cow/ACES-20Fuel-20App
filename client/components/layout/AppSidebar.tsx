@@ -65,12 +65,12 @@ function AppSidebar() {
       collapsible="icon"
     >
       <SidebarHeader className="px-4 py-3">
-        <div className="flex items-center">
+        <div className="flex items-center justify-center">
           <Link to="/" className="select-none">
             <img
-              src="https://cdn.builder.io/api/v1/image/assets%2Fbd65b3cd7a86452e803a3d7dc7a3d048%2F1befde69d4c941c4bc184e091531baa4?format=webp&width=800"
+              src="https://cdn.builder.io/api/v1/image/assets%2Fbd65b3cd7a86452e803a3d7dc7a3d048%2F1befde69d4c941c4bc184e091531baa4?format=webp&width=1200"
               alt="ACES Managed Services"
-              className="h-16 w-auto"
+              className="w-full h-auto"
               loading="eager"
               decoding="async"
             />

@@ -128,9 +128,9 @@ export default function Login() {
             <div className="mb-8">
               <div className="mx-auto mb-3 flex items-center justify-center">
                 <img
-                  src="https://cdn.builder.io/api/v1/image/assets%2Fbd65b3cd7a86452e803a3d7dc7a3d048%2F1befde69d4c941c4bc184e091531baa4?format=webp&width=800"
+                  src="https://cdn.builder.io/api/v1/image/assets%2Fbd65b3cd7a86452e803a3d7dc7a3d048%2F1befde69d4c941c4bc184e091531baa4?format=webp&width=1600"
                   alt="ACES Managed Services"
-                  className="h-32 w-auto md:h-40"
+                  className="w-full h-auto"
                   loading="eager"
                   decoding="async"
                 />
