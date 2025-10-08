@@ -29,7 +29,7 @@ export default function Index() {
   const { data: kpis } = useKpis();
   const { data: statusData } = useStatusPie();
   const { data: zoneData } = useZonePie();
-  
+
   const cards = [
     {
       key: "totalLitersToday",
@@ -154,7 +154,6 @@ export default function Index() {
             </CardContent>
           </Card>
         </div>
-
       </div>
     </AppShell>
   );
