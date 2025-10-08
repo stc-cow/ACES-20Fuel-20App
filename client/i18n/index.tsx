@@ -131,7 +131,7 @@ const ar: Dict = {
   settingsCities: "المدن",
   settingsZones: "المناطق",
   settingsAdminLog: "سجل المشرف",
-  adminUsers: "مستخدمو المشرف",
+  adminUsers: "��ستخدمو المشرف",
   authorizations: "الصلاحيات",
   generalSettings: "الإ��دادات العامة",
   literPrice: "سعر اللتر",
@@ -155,7 +155,7 @@ const ar: Dict = {
   sendResetLink: "إرسال رابط إعادة التعيين",
   cancel: "إلغاء",
   resetEmailSent: "إذا كان الحساب موجودًا، فقد تم إرسال رسالة إعادة التعيين.",
-  invalidEmail: "يرجى إدخال بريد إلكتروني صالح.",
+  invalidEmail: "يرج�� إدخال بريد إلكتروني صالح.",
   totalLitersToday: "إجمالي اللترات ا��مضافة اليوم",
   totalLiters30: "إجمالي اللترات المضافة خلال آخر 30 يومًا",
   stcCow30: "Stc-cow – آخر 30 يومًا",
@@ -249,6 +249,14 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
 
 export function useI18n() {
   const ctx = useContext(I18nContext);
-  if (!ctx) throw new Error("useI18n must be used within I18nProvider");
+  if (!ctx) {
+    // Fallback for cases where the provider isn't mounted (pre-render or mis-wiring).
+    // Avoid throwing to prevent the whole app from crashing; return a minimal safe API.
+    return {
+      lang: "en",
+      t: (key: string) => key,
+      setLang: (l: Lang) => {},
+    } as I18nContextType;
+  }
   return ctx;
 }
