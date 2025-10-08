@@ -20,7 +20,6 @@ import {
 import { useI18n } from "@/i18n";
 import { toast } from "@/hooks/use-toast";
 import { Loader2, Eye, EyeOff } from "lucide-react";
-import { Loader2, Eye, EyeOff } from "lucide-react";
 
 const schema = z.object({
   username: z.string().min(1, "Username is required"),
