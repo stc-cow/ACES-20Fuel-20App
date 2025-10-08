@@ -80,11 +80,13 @@ export default function Login() {
         .maybeSingle();
       if (!authErr && authUser) {
         ok = authUser.password === values.password;
-        isSuperAdmin = String(authUser.position || "").toLowerCase() === "admin";
+        isSuperAdmin =
+          String(authUser.position || "").toLowerCase() === "admin";
       }
     }
     if (!ok && (!data || error)) {
-      ok = values.username.trim() === "Bannaga" && values.password === "Aces@6343";
+      ok =
+        values.username.trim() === "Bannaga" && values.password === "Aces@6343";
       if (ok) isSuperAdmin = true;
     }
 
@@ -172,10 +174,7 @@ export default function Login() {
               </p>
               <div className="border-t border-black/10 my-4" />
             </div>
-            <form
-              onSubmit={handleSubmit(onSubmit)}
-              className="space-y-5"
-            >
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
               <div>
                 <Label htmlFor="username" className="text-black/70">
                   {t("username")}
@@ -240,9 +239,7 @@ export default function Login() {
                 className="w-full h-12 rounded-lg font-bold text-lg bg-[linear-gradient(90deg,#ff3b3b,#6c63ff)] text-white shadow-[0_3px_12px_rgba(108,99,255,0.3)] transition-all duration-300 hover:-translate-y-0.5 hover:opacity-95"
                 disabled={isSubmitting}
               >
-                {isSubmitting && (
-                  <Loader2 className="mr-2 h-5 w-5" />
-                )}
+                {isSubmitting && <Loader2 className="mr-2 h-5 w-5" />}
                 {isSubmitting ? t("signingIn") : t("login")}
               </Button>
             </form>
@@ -352,12 +349,7 @@ function Decor() {
           className="opacity-60"
         />
       </g>
-      <g
-        fill="none"
-        stroke="url(#g)"
-        strokeOpacity="0.12"
-        className=""
-      >
+      <g fill="none" stroke="url(#g)" strokeOpacity="0.12" className="">
         <path d="M0 700 L300 500 600 650 900 450 1200 600" />
         <path d="M0 500 L250 350 500 500 750 350 1000 500 1200 400" />
         <path d="M0 300 L300 200 600 300 900 200 1200 250" />
