@@ -4,12 +4,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
   Table,
   TableBody,
   TableCell,
@@ -92,7 +86,7 @@ export default function SitesPage() {
   const [rows, setRows] = useState<SiteRow[]>([]);
   const [page, setPage] = useState(1);
   const [pageSize] = useState(10);
-  const [cols, setCols] = useState<Record<ColumnKey, boolean>>({
+  const [cols] = useState<Record<ColumnKey, boolean>>({
     index: true,
     name: true,
     generator: true,
@@ -104,7 +98,7 @@ export default function SitesPage() {
     city: true,
     address: true,
     active: true,
-    settings: true,
+    settings: false,
   });
 
   const [editOpen, setEditOpen] = useState(false);
@@ -238,44 +232,13 @@ export default function SitesPage() {
             Manage the site details
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="destructive" className="hidden sm:inline-flex">
-              Archive
-            </Button>
             <Button
               variant="secondary"
               className="hidden sm:inline-flex"
               onClick={exportCsv}
             >
-              <Download className="mr-2 h-4 w-4" /> Excel All
+              <Download className="mr-2 h-4 w-4" /> Export
             </Button>
-            <Button
-              variant="outline"
-              className="hidden sm:inline-flex"
-              onClick={() => window.print()}
-            >
-              <Printer className="mr-2 h-4 w-4" /> Print
-            </Button>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="hidden sm:inline-flex">
-                  <Columns2 className="mr-2 h-4 w-4" /> Column visibility
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                {allColumns.map((c) => (
-                  <DropdownMenuCheckboxItem
-                    key={c.key}
-                    checked={cols[c.key]}
-                    onCheckedChange={(v) =>
-                      setCols((s) => ({ ...s, [c.key]: !!v }))
-                    }
-                    disabled={c.key === "index"}
-                  >
-                    {c.label}
-                  </DropdownMenuCheckboxItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
           </div>
         </div>
 
@@ -340,9 +303,6 @@ export default function SitesPage() {
                     {cols.active && (
                       <TableHead className="text-white">Active</TableHead>
                     )}
-                    {cols.settings && (
-                      <TableHead className="text-white">Settings</TableHead>
-                    )}
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -375,34 +335,6 @@ export default function SitesPage() {
                           ) : (
                             <XCircle className="h-5 w-5 text-rose-500" />
                           )}
-                        </TableCell>
-                      )}
-                      {cols.settings && (
-                        <TableCell className="space-x-2 text-right">
-                          <Button
-                            size="icon"
-                            variant="ghost"
-                            aria-label="View"
-                            onClick={() => openView(r)}
-                          >
-                            <Eye className="h-4 w-4" />
-                          </Button>
-                          <Button
-                            size="icon"
-                            variant="ghost"
-                            aria-label="Edit"
-                            onClick={() => openEdit(r)}
-                          >
-                            <Pencil className="h-4 w-4" />
-                          </Button>
-                          <Button
-                            size="icon"
-                            variant="ghost"
-                            aria-label="Delete"
-                            onClick={() => remove(r.id)}
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
                         </TableCell>
                       )}
                     </TableRow>
@@ -451,7 +383,7 @@ export default function SitesPage() {
         </Card>
       </div>
 
-      <Dialog open={editOpen} onOpenChange={setEditOpen}>
+      <Dialog open={false} onOpenChange={() => {}}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Edit Site</DialogTitle>
