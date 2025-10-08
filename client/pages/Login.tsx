@@ -20,6 +20,7 @@ import {
 import { useI18n } from "@/i18n";
 import { toast } from "@/hooks/use-toast";
 import { Loader2, Eye, EyeOff } from "lucide-react";
+import { Loader2, Eye, EyeOff } from "lucide-react";
 
 const schema = z.object({
   username: z.string().min(1, "Username is required"),
@@ -98,6 +99,7 @@ export default function Login() {
   const { t } = useI18n();
   const [resetOpen, setResetOpen] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [resetEmail, setResetEmail] = useState("");
 
   const sendReset = async () => {
@@ -125,37 +127,38 @@ export default function Login() {
     <div className="relative min-h-screen w-full overflow-hidden bg-gradient-to-br from-[#eef2ff] via-[#f8fafc] to-[#ffffff]">
       <Decor />
       <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl items-center justify-center px-4">
-        <Card className="w-full max-w-md bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl shadow-2xl transition-transform duration-300 ease-in-out hover:scale-[1.01]">
+        <Card className="w-full max-w-md bg-[linear-gradient(to_bottom,rgba(255,255,255,0.9),rgba(240,240,240,0.95))] backdrop-blur-[12px] border border-white/60 rounded-2xl shadow-[0_4px_25px_rgba(0,0,0,0.08)] transition-transform duration-300 ease-in-out hover:scale-[1.01]">
           <CardContent className="p-10">
             <div className="mb-8">
-              <div className="mx-auto mb-4 flex flex-col items-center justify-center">
-                <div className="w-full max-w-[380px] md:max-w-[460px]">
+              <div className="mx-auto mb-3 flex items-center justify-center">
+                <div className="inline-block bg-white/20 rounded-xl px-[10px] py-[6px]">
                   <img
                     src="https://cdn.builder.io/api/v1/image/assets%2Fbd65b3cd7a86452e803a3d7dc7a3d048%2F88c65af5aa594e4eb74b03e70886ef92?format=webp&width=1600"
                     alt="ACES Managed Services"
-                    className="w-full h-auto drop-shadow-[0_0_16px_rgba(255,255,255,0.18)]"
+                    className="mx-auto w-[160px] max-w-[80%] h-auto object-contain drop-shadow-[0_0_6px_rgba(0,0,0,0.25)]"
                     loading="eager"
                     decoding="async"
                   />
                 </div>
               </div>
-              <h1 className="text-lg md:text-xl font-semibold text-white text-center">
+              <h1 className="text-lg md:text-xl font-semibold text-black/70 text-center">
                 Sign in to ACES MSD Fuel Portal
               </h1>
-              <p className="mt-2 text-xs md:text-sm text-white/70 text-center">
+              <p className="mt-2 text-xs md:text-sm text-black/60 text-center">
                 {t("signInSubtitle")}
               </p>
+              <div className="border-t border-black/10 my-4" />
             </div>
             <form onSubmit={handleSubmit(onSubmit)} className={"space-y-5 " + (authError ? "animate-shake" : "")}>
               <div>
-                <Label htmlFor="username" className="text-white/80">
+                <Label htmlFor="username" className="text-black/70">
                   {t("username")}
                 </Label>
                 <Input
                   id="username"
                   placeholder={t("username")}
                   autoComplete="username"
-                  className="mt-2 h-12 rounded-xl bg-[#0B1220]/60 border border-white/15 text-white placeholder:text-white/50 shadow-inner transition-colors duration-200 focus:border-cyan-400 focus-visible:ring-2 focus-visible:ring-cyan-400/40"
+                  className="mt-2 h-12 rounded-lg bg-[#f2f2f2] border border-black/10 text-black placeholder:text-black/50 shadow-inner transition-colors duration-200 focus:border-cyan-500 focus-visible:ring-2 focus-visible:ring-cyan-400/30"
                   {...register("username")}
                 />
                 {errors.username && (
@@ -165,7 +168,7 @@ export default function Login() {
                 )}
               </div>
               <div>
-                <Label htmlFor="password" className="text-white/80">
+                <Label htmlFor="password" className="text-black/70">
                   {t("password")}
                 </Label>
                 <div className="relative mt-2">
@@ -174,14 +177,14 @@ export default function Login() {
                     type={showPassword ? "text" : "password"}
                     placeholder={t("password")}
                     autoComplete="current-password"
-                    className="h-12 rounded-xl bg-[#0B1220]/60 border border-white/15 text-white placeholder:text-white/50 shadow-inner transition-colors duration-200 focus:border-cyan-400 focus-visible:ring-2 focus-visible:ring-cyan-400/40 pr-10"
+                    className="h-12 rounded-lg bg-[#f2f2f2] border border-black/10 text-black placeholder:text-black/50 shadow-inner transition-colors duration-200 focus:border-cyan-500 focus-visible:ring-2 focus-visible:ring-cyan-400/30 pr-10"
                     {...register("password")}
                   />
                   <button
                     type="button"
                     aria-label={showPassword ? "Hide password" : "Show password"}
                     onClick={() => setShowPassword((v) => !v)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-white/60 hover:text-white"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-black/60 hover:text-black"
                   >
                     {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                   </button>
@@ -193,9 +196,9 @@ export default function Login() {
                 )}
               </div>
               <div className="flex items-center justify-between">
-                <label className="flex items-center gap-2 text-white/70">
+                <label className="flex items-center gap-2 text-black/70">
                   <Checkbox
-                    className="border-white/30 data-[state=checked]:bg-primary"
+                    className="border-black/30 data-[state=checked]:bg-primary"
                     {...register("remember")}
                   />
                   <span className="text-sm">{t("rememberMe")}</span>
@@ -206,7 +209,7 @@ export default function Login() {
               )}
               <Button
                 type="submit"
-                className="w-full h-12 rounded-lg font-bold text-lg bg-gradient-to-r from-[#FF3C3C] via-[#C027B5] to-[#6C63FF] text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-2xl"
+                className="w-full h-12 rounded-lg font-bold text-lg bg-[linear-gradient(90deg,#ff3b3b,#6c63ff)] text-white shadow-[0_3px_12px_rgba(108,99,255,0.3)] transition-all duration-300 hover:-translate-y-0.5 hover:opacity-95"
                 disabled={isSubmitting}
               >
                 {isSubmitting && <Loader2 className="mr-2 h-5 w-5 animate-spin" />}
