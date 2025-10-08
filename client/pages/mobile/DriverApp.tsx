@@ -447,6 +447,12 @@ export default function DriverApp() {
                       .upsert(rows, {
                         onConflict: "notification_id,driver_name",
                       } as any);
+                    // Delete notifications targeted to this driver after marking as read
+                    await supabase
+                      .from("driver_notifications")
+                      .delete()
+                      .in("id", ids as any)
+                      .eq("driver_name", profile.name);
                     setUnreadCount(0);
                   }
                   setNotifOpen(true);
