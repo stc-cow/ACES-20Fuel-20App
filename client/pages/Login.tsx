@@ -174,7 +174,7 @@ export default function Login() {
             </div>
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className={"space-y-5 " + (authError ? "animate-shake" : "")}
+              className="space-y-5"
             >
               <div>
                 <Label htmlFor="username" className="text-black/70">
@@ -241,7 +241,7 @@ export default function Login() {
                 disabled={isSubmitting}
               >
                 {isSubmitting && (
-                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                  <Loader2 className="mr-2 h-5 w-5" />
                 )}
                 {isSubmitting ? t("signingIn") : t("login")}
               </Button>
@@ -334,7 +334,7 @@ function Decor() {
           <feGaussianBlur stdDeviation="60" />
         </filter>
       </defs>
-      <g opacity="0.45" className="animate-float-slow">
+      <g opacity="0.45" className="">
         <circle cx="200" cy="150" r="300" fill="url(#r1)" filter="url(#blur)" />
         <circle
           cx="1000"
@@ -356,7 +356,7 @@ function Decor() {
         fill="none"
         stroke="url(#g)"
         strokeOpacity="0.12"
-        className="animate-float-slower"
+        className=""
       >
         <path d="M0 700 L300 500 600 650 900 450 1200 600" />
         <path d="M0 500 L250 350 500 500 750 350 1000 500 1200 400" />
