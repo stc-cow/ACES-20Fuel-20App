@@ -265,7 +265,7 @@ export default function SitesPage() {
             <div className="overflow-x-auto">
               <Table>
                 <TableHeader>
-                  <TableRow className="bg-[hsl(var(--primary))] text-white hover:bg-[hsl(var(--primary))]">
+                  <TableRow className="bg-[#0C2340] text-white hover:bg-[#0C2340]">
                     {cols.index && (
                       <TableHead className="text-white">#</TableHead>
                     )}
