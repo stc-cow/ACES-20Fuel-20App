@@ -29,6 +29,7 @@ export default function Index() {
   const { data: kpis } = useKpis();
   const { data: statusData } = useStatusPie();
   const { data: zoneData } = useZonePie();
+  const { data: regionLiters } = useRegionLitersTotal();
 
   const cards = [
     {
@@ -155,35 +156,28 @@ export default function Index() {
           </Card>
         </div>
         <div className="mt-6 grid gap-4 md:grid-cols-2">
-          {(() => {
-            const { central = 0, east = 0 } = (useRegionLitersTotal() as any).data || {};
-            return (
-              <>
-                <Card className="overflow-hidden rounded-2xl shadow-sm">
-                  <div className="h-2 w-full" style={{ backgroundColor: "#0C2340" }} />
-                  <CardContent className="p-6">
-                    <div className="flex items-center justify-between">
-                      <div className="text-sm/6 text-[#6B7280] font-medium">Total added liters in Central</div>
-                      <div className="text-2xl font-bold text-[#1F2937]">
-                        {(central ?? 0).toFixed(2)} liters
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-                <Card className="overflow-hidden rounded-2xl shadow-sm">
-                  <div className="h-2 w-full" style={{ backgroundColor: "#06b6d4" }} />
-                  <CardContent className="p-6">
-                    <div className="flex items-center justify-between">
-                      <div className="text-sm/6 text-[#6B7280] font-medium">Total added liters in East</div>
-                      <div className="text-2xl font-bold text-[#1F2937]">
-                        {(east ?? 0).toFixed(2)} liters
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </>
-            );
-          })()}
+          <Card className="overflow-hidden rounded-2xl shadow-sm">
+            <div className="h-2 w-full" style={{ backgroundColor: "#0C2340" }} />
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div className="text-sm/6 text-[#6B7280] font-medium">Total added liters in Central</div>
+                <div className="text-2xl font-bold text-[#1F2937]">
+                  {Number(regionLiters?.central ?? 0).toFixed(2)} liters
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+          <Card className="overflow-hidden rounded-2xl shadow-sm">
+            <div className="h-2 w-full" style={{ backgroundColor: "#06b6d4" }} />
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div className="text-sm/6 text-[#6B7280] font-medium">Total added liters in East</div>
+                <div className="text-2xl font-bold text-[#1F2937]">
+                  {Number(regionLiters?.east ?? 0).toFixed(2)} liters
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </AppShell>
