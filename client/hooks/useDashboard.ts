@@ -66,3 +66,23 @@ export function useFuelTrend() {
     },
   });
 }
+
+export function useRegionLitersTotal() {
+  return useQuery({
+    queryKey: ["regionLitersTotal"],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from("v_liters_by_zone_total")
+        .select("zone, liters");
+      const rows = Array.isArray(data) ? data : [];
+      let central = 0,
+        east = 0;
+      for (const r of rows) {
+        const z = String((r as any).zone || "");
+        if (z === "Central") central += num((r as any).liters);
+        if (z === "East") east += num((r as any).liters);
+      }
+      return { central, east };
+    },
+  });
+}
