@@ -4,7 +4,12 @@ import { useI18n } from "@/i18n";
 import { AppShell } from "@/components/layout/AppSidebar";
 import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 import { ChartContainer } from "@/components/ui/chart";
-import { useKpis, useStatusPie, useZonePie, useRegionLitersTotal } from "@/hooks/useDashboard";
+import {
+  useKpis,
+  useStatusPie,
+  useZonePie,
+  useRegionLitersTotal,
+} from "@/hooks/useDashboard";
 import { useState } from "react";
 
 const STATUS_COLORS = [
@@ -157,10 +162,15 @@ export default function Index() {
         </div>
         <div className="mt-6 grid gap-4 md:grid-cols-2">
           <Card className="overflow-hidden rounded-2xl shadow-sm">
-            <div className="h-2 w-full" style={{ backgroundColor: "#0C2340" }} />
+            <div
+              className="h-2 w-full"
+              style={{ backgroundColor: "#0C2340" }}
+            />
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
-                <div className="text-sm/6 text-[#6B7280] font-medium">Total added liters in Central</div>
+                <div className="text-sm/6 text-[#6B7280] font-medium">
+                  Total added liters in Central
+                </div>
                 <div className="text-2xl font-bold text-[#1F2937]">
                   {Number(regionLiters?.central ?? 0).toFixed(2)} liters
                 </div>
@@ -168,10 +178,15 @@ export default function Index() {
             </CardContent>
           </Card>
           <Card className="overflow-hidden rounded-2xl shadow-sm">
-            <div className="h-2 w-full" style={{ backgroundColor: "#06b6d4" }} />
+            <div
+              className="h-2 w-full"
+              style={{ backgroundColor: "#06b6d4" }}
+            />
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
-                <div className="text-sm/6 text-[#6B7280] font-medium">Total added liters in East</div>
+                <div className="text-sm/6 text-[#6B7280] font-medium">
+                  Total added liters in East
+                </div>
                 <div className="text-2xl font-bold text-[#1F2937]">
                   {Number(regionLiters?.east ?? 0).toFixed(2)} liters
                 </div>
